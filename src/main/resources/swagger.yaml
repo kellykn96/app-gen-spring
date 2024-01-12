@@ -1,0 +1,531 @@
+openapi: "3.0.0"
+info:
+  title: "Documentação de API"
+  version: "1.0.0"
+paths:
+  /api/professores:
+    get:
+      summary: "Listar todos os professores"
+      description: "Retorna uma lista de todos os professores."
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Professor"
+
+    post:
+      summary: "Criar um novo professor"
+      description: "Cria um novo professor com base nos dados fornecidos."
+      requestBody:
+        description: "Objeto do professor a ser criado"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Professor"
+      responses:
+        '201':
+          description: "Professor criado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfessorResponse"
+
+  /api/professores/nome:
+    get:
+      summary: "Obter informações de um professores pelo NOME"
+      description: "Retorna informações detalhadas de um professores com base no NOME fornecido."
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfessorResponse"
+
+  /api/professores/{id}:
+    get:
+      summary: "Obter informações de um professor pelo ID"
+      description: "Retorna informações detalhadas de um professor com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do professor a ser obtido"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfessorResponse"
+
+    put:
+      summary: "Atualizar informações de um professor pelo ID"
+      description: "Atualiza informações de um professor com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do professor a ser atualizado"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: "Objeto do professor a ser atualizado"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Professor"
+      responses:
+        '200':
+          description: "Professor atualizado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProfessorResponse"
+
+    delete:
+      summary: "Excluir um professor pelo ID"
+      description: "Exclui um professor com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do professor a ser excluído"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: "Professor excluído com sucesso"
+
+  /api/alunos:
+    get:
+      summary: "Listar todos os alunos"
+      description: "Retorna uma lista de todos os alunos."
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlunoResponse"
+
+    post:
+      summary: "Criar um novo aluno"
+      description: "Cria um novo aluno com base nos dados fornecidos."
+      requestBody:
+        description: "Objeto do aluno a ser criado"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlunoRequest"
+      responses:
+        '201':
+          description: "Aluno criado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlunoResponse"
+
+  /api/alunos/nome:
+    get:
+      summary: "Obter informações de um aluno pelo NOME"
+      description: "Retorna informações detalhadas de um aluno com base no NOME fornecido."
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlunoResponse"
+
+  /api/alunos/{id}:
+    get:
+      summary: "Obter informações de um aluno pelo ID"
+      description: "Retorna informações detalhadas de um aluno com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do aluno a ser obtido"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlunoResponse"
+
+    put:
+      summary: "Atualizar informações de um aluno pelo ID"
+      description: "Atualiza informações de um aluno com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do aluno a ser atualizado"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: "Objeto do aluno a ser atualizado"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlunoRequest"
+      responses:
+        '200':
+          description: "Aluno atualizado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlunoResponse"
+
+    delete:
+      summary: "Excluir um aluno pelo ID"
+      description: "Exclui um aluno com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do aluno a ser excluído"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: "Aluno excluído com sucesso"
+
+  /api/turmas:
+    get:
+      summary: "Listar todas as turmas"
+      description: "Retorna uma lista de todas as turmas."
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TurmaResponse"
+
+    post:
+      summary: "Criar uma nova turma"
+      description: "Cria uma nova turma com base nos dados fornecidos."
+      requestBody:
+        description: "Objeto da turma a ser criada"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Turma"
+      responses:
+        '201':
+          description: "Turma criada com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TurmaResponse"
+
+  /api/turmas/{id}:
+    get:
+      summary: "Obter informações de uma turma pelo ID"
+      description: "Retorna informações detalhadas de uma turma com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID da turma a ser obtida"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TurmaResponse"
+
+    put:
+      summary: "Atualizar informações de uma turma pelo ID"
+      description: "Atualiza informações de uma turma com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID da turma a ser atualizada"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: "Objeto da turma a ser atualizada"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Turma"
+      responses:
+        '200':
+          description: "Turma atualizada com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TurmaResponse"
+
+    delete:
+      summary: "Excluir uma turma pelo ID"
+      description: "Exclui uma turma com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID da turma a ser excluída"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: "Turma excluída com sucesso"        
+
+  /api/feedback:
+    get:
+      summary: "Listar todos os feedbacks"
+      description: "Retorna uma lista de todos os feedbacks."
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FeedbackResponse"
+
+    post:
+      summary: "Enviar um novo feedback"
+      description: "Envia um novo feedback com base nos dados fornecidos."
+      requestBody:
+        description: "Objeto do feedback a ser enviado"
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/Feedback"
+      responses:
+        '201':
+          description: "Feedback enviado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackResponse"
+
+  /api/feedback/{id}:
+    get:
+      summary: "Obter informações de um feedback pelo ID"
+      description: "Retorna informações detalhadas de um feedback com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do feedback a ser obtido"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackResponse"
+
+    put:
+      summary: "Atualizar informações de um feedback pelo ID"
+      description: "Atualiza informações de um feedback com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do feedback a ser atualizado"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: "Objeto do feedback a ser atualizado"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Feedback"
+      responses:
+        '200':
+          description: "Feedback atualizado com sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackResponse"
+
+    delete:
+      summary: "Excluir um feedback pelo ID"
+      description: "Exclui um feedback com base no ID fornecido."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do feedback a ser excluído"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: "Feedback excluído com sucesso"
+
+components:
+  schemas:
+    Professor:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Nome do Professor"
+        idade:
+          type: integer
+          example: 35
+        materia:
+          type: string
+          example: "Matéria do Professor"
+        observacoes:
+          type: string
+          example: "Observações sobre o Professor"
+
+    ProfessorResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: "Nome do Professor"
+        idade:
+          type: integer
+          example: 35
+        materia:
+          type: string
+          example: "Matéria do Professor"
+        observacoes:
+          type: string
+          example: "Observações sobre o Professor"
+    
+    Aluno:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Nome do Aluno"
+        idade:
+          type: integer
+          example: 20
+        turma:
+          type: integer
+          example: 1
+        dataNascimento:
+          type: string
+          example: "2004-01-01"
+        notaPrimeiroSemestre:
+          type: number  
+          example: 8.5
+        notaSegundoSemestre:
+          type: number  
+          example: 9.0
+
+    AlunoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: "Nome do Aluno"
+        idade:
+          type: integer
+          example: 20
+        turma:
+          $ref: "#/components/schemas/TurmaResponse"
+        dataNascimento:
+          type: string
+          example: "2004-01-01"
+        notaPrimeiroSemestre:
+          type: number  
+          example: 8.5
+        notaSegundoSemestre:
+          type: number  
+          example: 9.0
+        mediaFinal:
+          type: number  
+          example: 9.0
+
+    Turma:
+      type: object
+      properties:
+        descricao:
+          type: string
+          example: "Descrição da Turma"
+        professor:
+          type: integer
+          example: 1
+        ativo:
+          type: boolean
+          example: true
+    
+    TurmaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        descricao:
+          type: string
+          example: "Descrição da Turma"
+        professor:
+          $ref: "#/components/schemas/ProfessorResponse"
+        ativo:
+          type: boolean
+          example: true
+
+    Feedback:
+      type: object
+      properties:
+        observacoes:
+          type: string
+          example: "Observações sobre o sistema"
+    
+    FeedbackResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        observacoes:
+          type: string
+          example: "Observações sobre o sistema"
